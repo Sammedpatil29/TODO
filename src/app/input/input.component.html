@@ -1,5 +1,20 @@
 <div>
-    <input type="text" [(ngModel)]="title">
-    <input type="text" [(ngModel)]="desc">
-    <button (click)="submit()">add TODO</button>
+    <div>
+        <p>Title</p>
+        <input type="text" [(ngModel)]="newTodo.title">
+    </div>
+    <div>
+        <p>Description</p>
+        <input type="text" [(ngModel)]="newTodo.description">
+    </div>
+    <div>
+        <button (click)="addTodo()">add TODO</button>
+    </div>
 </div>
+<ul>
+    <li *ngFor="let todo of todos; let i = index" (click)="deleteTodo(i)">
+      <h4>{{ todo.title }}</h4>
+      <p>{{ todo.description }}</p>
+      <button (click)="$event.stopPropagation(); deleteTodo(i)" class="btn btn-danger">Delete</button>
+    </li>
+  </ul>

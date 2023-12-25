@@ -10,20 +10,34 @@ export class InputComponent implements OnInit {
   desc: string = '';
   addtitle: string = '';
   addDesc: string = '';
+  todos: { title: string, description: string }[] = [];
+  newTodo: { title: string, description: string } = { title: '', description: '' };
 
   constructor() { }
 
+  addTodo() {
+    if (this.newTodo.title && this.newTodo.description) {
+      this.todos.push({ ...this.newTodo });
+      this.saveToLocalStorage();
+      this.newTodo.title = '';
+      this.newTodo.description = '';
+    }
+  }
+
+  deleteTodo(index: number) {
+    this.todos.splice(index, 1);
+    this.saveToLocalStorage();
+  }
+
+  private saveToLocalStorage() {
+    localStorage.setItem('todos', JSON.stringify(this.todos));
+  }
+
   ngOnInit(): void {
-    this.addtitle = localStorage.getItem('addtitle');
-    this.addtitle = localStorage.getItem('addDesc')
-
-  }
-  submit(){
-    if (this.title || this.desc){
-    localStorage.setItem('addtitle', this.title);
-    localStorage.setItem('addDesc', this.desc);
-    console.log('Submitted')
-  }
+    const storedTodos = localStorage.getItem('todos');
+    if (storedTodos) {
+      this.todos = JSON.parse(storedTodos);
+    }
   }
 
-}
+  }
