@@ -1,4 +1,4 @@
-<div class="bg-color red"><div class="container mt-4">
+<div class="container mt-4">
     <div class="row">
         <div class="col-md-12 mb-3">
             <div class="form-group">
@@ -17,14 +17,11 @@
         </div>
     </div>
 </div>
-</div>
 
 <ul class="list-group mt-4">
     <li class="list-group-item" *ngFor="let todo of todos; let i = index" (click)="deleteTodo(i)">
         <h4>{{ todo.title }}</h4>
         <p>{{ todo.description }}</p>
         <button class="btn btn-danger " (click)="$event.stopPropagation(); deleteTodo(i)">Delete</button>
-        <button class="btn btn-primary" (click)="editTodo(i)">Edit</button>
     </li>
 </ul>
-
